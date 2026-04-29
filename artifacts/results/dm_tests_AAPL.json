@@ -1,0 +1,86 @@
+{
+  "lstm_vs_gru": {
+    "dm_statistic": -1.0817506454020192,
+    "p_value": 0.2804098571910798,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "lstm_vs_transformer": {
+    "dm_statistic": -2.938297061361773,
+    "p_value": 0.0036099024969098448,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  },
+  "lstm_vs_ensemble": {
+    "dm_statistic": 0.10102388635934345,
+    "p_value": 0.9196127962205312,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "gru_vs_transformer": {
+    "dm_statistic": -2.779866118810224,
+    "p_value": 0.005853233929558277,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  },
+  "gru_vs_ensemble": {
+    "dm_statistic": 2.0664724669791292,
+    "p_value": 0.03981800732168117,
+    "significant_5pct": true,
+    "significant_1pct": false,
+    "better_model": "model2"
+  },
+  "transformer_vs_ensemble": {
+    "dm_statistic": 4.883852074505421,
+    "p_value": 1.862068885971624e-06,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "lstm_vs_arima": {
+    "dm_statistic": 2.7778738296527252,
+    "p_value": 0.005888137052270093,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "gru_vs_arima": {
+    "dm_statistic": 3.3486300845298174,
+    "p_value": 0.0009379335413455259,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "transformer_vs_arima": {
+    "dm_statistic": 4.605544496535018,
+    "p_value": 6.567364246423679e-06,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "ensemble_vs_arima": {
+    "dm_statistic": 2.648614818713256,
+    "p_value": 0.00859880998563467,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "lstm_vs_naive": {
+    "dm_statistic": -5.014292425712106,
+    "p_value": 1.0118238356060516e-06,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  },
+  "ensemble_vs_naive": {
+    "dm_statistic": -5.095865390685673,
+    "p_value": 6.867437662982923e-07,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  }
+}

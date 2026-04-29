@@ -1,0 +1,86 @@
+{
+  "lstm_vs_gru": {
+    "dm_statistic": 4.215025311773814,
+    "p_value": 3.496163561811372e-05,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "lstm_vs_transformer": {
+    "dm_statistic": 6.894069590473868,
+    "p_value": 4.4353409833775004e-11,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "lstm_vs_ensemble": {
+    "dm_statistic": 8.110748295662683,
+    "p_value": 2.2870594307278225e-14,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "gru_vs_transformer": {
+    "dm_statistic": -0.561785804535789,
+    "p_value": 0.5747672738639511,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "gru_vs_ensemble": {
+    "dm_statistic": -0.22610945656201006,
+    "p_value": 0.8213017816156261,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "transformer_vs_ensemble": {
+    "dm_statistic": 1.1461571365442769,
+    "p_value": 0.2528304104199335,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "lstm_vs_arima": {
+    "dm_statistic": 6.54931981589083,
+    "p_value": 3.285918204198879e-10,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "gru_vs_arima": {
+    "dm_statistic": 2.2692832991361978,
+    "p_value": 0.02410708750955992,
+    "significant_5pct": true,
+    "significant_1pct": false,
+    "better_model": "model2"
+  },
+  "transformer_vs_arima": {
+    "dm_statistic": 3.5900333033380125,
+    "p_value": 0.0003981690495311607,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "ensemble_vs_arima": {
+    "dm_statistic": 3.1006310841790174,
+    "p_value": 0.002153236533617431,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "lstm_vs_naive": {
+    "dm_statistic": -1.828421822632417,
+    "p_value": 0.06868256557785402,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "ensemble_vs_naive": {
+    "dm_statistic": -4.94596819226019,
+    "p_value": 1.394791377729021e-06,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  }
+}

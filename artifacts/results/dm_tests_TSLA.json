@@ -1,0 +1,86 @@
+{
+  "lstm_vs_gru": {
+    "dm_statistic": 1.0844093435014364,
+    "p_value": 0.27923218781664505,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "lstm_vs_transformer": {
+    "dm_statistic": -0.16875908441254228,
+    "p_value": 0.8661231473377029,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "lstm_vs_ensemble": {
+    "dm_statistic": 2.5422899472736216,
+    "p_value": 0.011619602009164787,
+    "significant_5pct": true,
+    "significant_1pct": false,
+    "better_model": "model2"
+  },
+  "gru_vs_transformer": {
+    "dm_statistic": -1.0498976387987835,
+    "p_value": 0.2947830918204346,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "gru_vs_ensemble": {
+    "dm_statistic": -0.03311581387523163,
+    "p_value": 0.9736087618621823,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "transformer_vs_ensemble": {
+    "dm_statistic": 2.1828659403864688,
+    "p_value": 0.02998010019868258,
+    "significant_5pct": true,
+    "significant_1pct": false,
+    "better_model": "model2"
+  },
+  "lstm_vs_arima": {
+    "dm_statistic": 1.611403927911879,
+    "p_value": 0.10835852543767732,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "gru_vs_arima": {
+    "dm_statistic": -0.1420169130516601,
+    "p_value": 0.8871814858328184,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "transformer_vs_arima": {
+    "dm_statistic": 1.4723581650793294,
+    "p_value": 0.1421870138860315,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "ensemble_vs_arima": {
+    "dm_statistic": -0.21008568340109385,
+    "p_value": 0.8337725994786704,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "lstm_vs_naive": {
+    "dm_statistic": -4.929081266221712,
+    "p_value": 1.5091846909953688e-06,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  },
+  "ensemble_vs_naive": {
+    "dm_statistic": -5.201959719427443,
+    "p_value": 4.119707222027813e-07,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  }
+}

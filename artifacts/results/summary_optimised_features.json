@@ -1,0 +1,122 @@
+{
+  "ticker": "AAPL",
+  "original_feature_cols": [
+    "Close",
+    "Volume",
+    "SMA_10",
+    "SMA_30",
+    "EMA_12",
+    "RSI_14",
+    "Daily_Return",
+    "Volatility_10",
+    "Log_Return",
+    "VIX_Zscore",
+    "Yield_Spread",
+    "DXY"
+  ],
+  "optimised_feature_cols": [
+    "Close",
+    "Volume",
+    "SMA_10",
+    "SMA_30",
+    "EMA_12",
+    "Daily_Return",
+    "Volatility_10",
+    "Log_Return",
+    "VIX_Zscore",
+    "Yield_Spread",
+    "DXY"
+  ],
+  "per_model": {
+    "lstm": {
+      "original": {
+        "metrics_returns": {
+          "MAE": 0.010053647414089787,
+          "RMSE": 0.013187888257943816,
+          "SMAPE": 138.66491472765424,
+          "Dir_Acc": 56.00000000000001
+        },
+        "metrics_prices": {
+          "MAE_$": 39.0868372302482,
+          "RMSE_$": 59.42218563765011,
+          "MAPE_%": 21.687755123829884
+        }
+      },
+      "optimised": {
+        "metrics_returns": {
+          "MAE": 0.01018745639289061,
+          "RMSE": 0.013301882517011426,
+          "SMAPE": 161.03279779491325,
+          "Dir_Acc": 46.0
+        },
+        "metrics_prices": {
+          "MAE_$": 72.89462773364549,
+          "RMSE_$": 79.70927456094942,
+          "MAPE_%": 41.229713102930496
+        }
+      },
+      "delta_mape_pct_points": 19.541957979100612,
+      "delta_dir_acc_pct_points": -10.000000000000007
+    },
+    "gru": {
+      "original": {
+        "metrics_returns": {
+          "MAE": 0.017063504166465373,
+          "RMSE": 0.02025026919750499,
+          "SMAPE": 133.16373192587614,
+          "Dir_Acc": 56.00000000000001
+        },
+        "metrics_prices": {
+          "MAE_$": 1858.9551364443141,
+          "RMSE_$": 2923.2974978229818,
+          "MAPE_%": 1018.6425113151787
+        }
+      },
+      "optimised": {
+        "metrics_returns": {
+          "MAE": 0.010728733822610683,
+          "RMSE": 0.013890716131473564,
+          "SMAPE": 148.53073155614166,
+          "Dir_Acc": 44.800000000000004
+        },
+        "metrics_prices": {
+          "MAE_$": 88.70916231590294,
+          "RMSE_$": 97.1751354917824,
+          "MAPE_%": 50.18376453279678
+        }
+      },
+      "delta_mape_pct_points": -968.4587467823819,
+      "delta_dir_acc_pct_points": -11.200000000000003
+    },
+    "transformer": {
+      "original": {
+        "metrics_returns": {
+          "MAE": 0.011013883790990163,
+          "RMSE": 0.014286827964847714,
+          "SMAPE": 128.91991818991616,
+          "Dir_Acc": 56.00000000000001
+        },
+        "metrics_prices": {
+          "MAE_$": 182.35816188312148,
+          "RMSE_$": 260.03210303452033,
+          "MAPE_%": 100.82320043347433
+        }
+      },
+      "optimised": {
+        "metrics_returns": {
+          "MAE": 0.018108442855778596,
+          "RMSE": 0.020956362668865896,
+          "SMAPE": 151.0413567875426,
+          "Dir_Acc": 43.6
+        },
+        "metrics_prices": {
+          "MAE_$": 129.72417470513275,
+          "RMSE_$": 140.38755268633153,
+          "MAPE_%": 73.60217075831041
+        }
+      },
+      "delta_mape_pct_points": -27.22102967516392,
+      "delta_dir_acc_pct_points": -12.400000000000006
+    }
+  }
+}

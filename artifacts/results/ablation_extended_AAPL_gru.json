@@ -1,0 +1,95 @@
+{
+  "no_sentiment": {
+    "n_features": 12,
+    "features": [
+      "Close",
+      "Volume",
+      "SMA_10",
+      "SMA_30",
+      "EMA_12",
+      "RSI_14",
+      "Daily_Return",
+      "Volatility_10",
+      "Log_Return",
+      "VIX_Zscore",
+      "Yield_Spread",
+      "DXY"
+    ],
+    "notes": {
+      "sentiment_features_not_present": true
+    },
+    "metrics_returns": {
+      "MAE": 0.01137640994460039,
+      "RMSE": 0.014195313050867348,
+      "SMAPE": 142.26080423476026,
+      "Dir_Acc": 54.800000000000004
+    },
+    "metrics_prices": {
+      "MAE_$": 111.54024155185185,
+      "RMSE_$": 154.37629902253607,
+      "MAPE_%": 61.836618337686666
+    }
+  },
+  "no_earnings": {
+    "n_features": 12,
+    "features": [
+      "Close",
+      "Volume",
+      "SMA_10",
+      "SMA_30",
+      "EMA_12",
+      "RSI_14",
+      "Daily_Return",
+      "Volatility_10",
+      "Log_Return",
+      "VIX_Zscore",
+      "Yield_Spread",
+      "DXY"
+    ],
+    "notes": {
+      "earnings_features_not_present": true
+    },
+    "metrics_returns": {
+      "MAE": 0.01232804707016711,
+      "RMSE": 0.015652005118652924,
+      "SMAPE": 142.14916880635042,
+      "Dir_Acc": 43.6
+    },
+    "metrics_prices": {
+      "MAE_$": 111.68855252627495,
+      "RMSE_$": 120.85035761700505,
+      "MAPE_%": 63.406964533935536
+    }
+  },
+  "no_cross_corr": {
+    "n_features": 12,
+    "features": [
+      "Close",
+      "Volume",
+      "SMA_10",
+      "SMA_30",
+      "EMA_12",
+      "RSI_14",
+      "Daily_Return",
+      "Volatility_10",
+      "Log_Return",
+      "VIX_Zscore",
+      "Yield_Spread",
+      "DXY"
+    ],
+    "notes": {
+      "cross_corr_features_not_present": true
+    },
+    "metrics_returns": {
+      "MAE": 0.016321394765939124,
+      "RMSE": 0.01925058188646688,
+      "SMAPE": 148.90742061573397,
+      "Dir_Acc": 44.0
+    },
+    "metrics_prices": {
+      "MAE_$": 129.63536606974804,
+      "RMSE_$": 140.05577890365544,
+      "MAPE_%": 73.56730878381134
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "lstm_vs_gru": {
+    "dm_statistic": -1.4354117545783527,
+    "p_value": 0.15242474514618976,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  },
+  "lstm_vs_transformer": {
+    "dm_statistic": -8.88208024541658,
+    "p_value": 2.220446049250313e-16,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  },
+  "lstm_vs_ensemble": {
+    "dm_statistic": -6.027219277480058,
+    "p_value": 5.975473893471417e-09,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  },
+  "gru_vs_transformer": {
+    "dm_statistic": -7.021277681386699,
+    "p_value": 2.0833557101695988e-11,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model1"
+  },
+  "gru_vs_ensemble": {
+    "dm_statistic": -2.3168014519310067,
+    "p_value": 0.021326647343428595,
+    "significant_5pct": true,
+    "significant_1pct": false,
+    "better_model": "model1"
+  },
+  "transformer_vs_ensemble": {
+    "dm_statistic": 9.286550000619778,
+    "p_value": 0.0,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "lstm_vs_arima": {
+    "dm_statistic": 5.912747319159036,
+    "p_value": 1.1037663671942255e-08,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "gru_vs_arima": {
+    "dm_statistic": 6.418663115507263,
+    "p_value": 6.89517332119749e-10,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "transformer_vs_arima": {
+    "dm_statistic": 9.757274787888123,
+    "p_value": 0.0,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "ensemble_vs_arima": {
+    "dm_statistic": 7.346153982939227,
+    "p_value": 2.908562279912985e-12,
+    "significant_5pct": true,
+    "significant_1pct": true,
+    "better_model": "model2"
+  },
+  "lstm_vs_naive": {
+    "dm_statistic": -2.1180517515535255,
+    "p_value": 0.03516173754602825,
+    "significant_5pct": true,
+    "significant_1pct": false,
+    "better_model": "model1"
+  },
+  "ensemble_vs_naive": {
+    "dm_statistic": -1.367444867002018,
+    "p_value": 0.17271894612944427,
+    "significant_5pct": false,
+    "significant_1pct": false,
+    "better_model": "indistinguishable"
+  }
+}

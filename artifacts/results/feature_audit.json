@@ -1,0 +1,615 @@
+{
+  "tickers": {
+    "AAPL": {
+      "Close": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 82.04628893022303,
+        "std": 55.91923765217574,
+        "min": 20.584814071655273,
+        "max": 196.0730743408203,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volume": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 122101090.0671141,
+        "std": 66331614.22024951,
+        "min": 24048300.0,
+        "max": 648825200.0,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 81.71514311293362,
+        "std": 55.712225712973776,
+        "min": 21.11185474395752,
+        "max": 193.94322204589844,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_30": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 80.96869187883438,
+        "std": 55.25434369277767,
+        "min": 21.747490247090656,
+        "max": 190.9645004272461,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "EMA_12": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 81.63958715371221,
+        "std": 55.64011735006952,
+        "min": 21.39351700930602,
+        "max": 193.01647311752646,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "RSI_14": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 55.88684383678298,
+        "std": 17.722400355512182,
+        "min": 3.180784944770707,
+        "max": 96.05963505833084,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Daily_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.22371364653243847,
+        "mean": 0.0010232189349714327,
+        "std": 0.018254272962111833,
+        "min": -0.1286469073716595,
+        "max": 0.11980804783590804,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volatility_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.01610095364130367,
+        "std": 0.008920332472445145,
+        "min": 0.0035955334018430317,
+        "max": 0.08005603389239752,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Log_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.22371364653243847,
+        "mean": 0.0008561320557654026,
+        "std": 0.01826337098472856,
+        "min": -0.13770799664400338,
+        "max": 0.11315728475797188,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "VIX_Zscore": {
+        "pct_nan": 0.0,
+        "pct_zero": 9.93288590604027,
+        "mean": -0.11950793286694843,
+        "std": 1.2129657076528164,
+        "min": -2.0558381124465748,
+        "max": 11.827805394702636,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Yield_Spread": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.8720621906250082,
+        "std": 0.9572892643106982,
+        "min": -1.7039997577667236,
+        "max": 2.471000070683658,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "DXY": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 97.4379150117537,
+        "std": 4.666280094637612,
+        "min": 88.58999633789062,
+        "max": 114.11000061035156,
+        "is_constant": false,
+        "flag_reasons": []
+      }
+    },
+    "MSFT": {
+      "Close": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 155.6744026081674,
+        "std": 99.15937545220964,
+        "min": 34.50904083251953,
+        "max": 376.21917724609375,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volume": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 29622337.807606265,
+        "std": 13181619.599074323,
+        "min": 7425600.0,
+        "max": 135227100.0,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 155.00592453651512,
+        "std": 98.77113559024158,
+        "min": 35.18311729431152,
+        "max": 370.70216674804686,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_30": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 153.53226320390465,
+        "std": 97.92429300743359,
+        "min": 35.73756879170735,
+        "max": 367.7464121500651,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "EMA_12": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 154.85969866423008,
+        "std": 98.65117163344264,
+        "min": 35.38686438053373,
+        "max": 368.0753774880104,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "RSI_14": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 56.42678959370952,
+        "std": 15.419946922933258,
+        "min": 6.806043715965316,
+        "max": 99.11171743805116,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Daily_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.6711409395973155,
+        "mean": 0.0011863600825339814,
+        "std": 0.017432487851821596,
+        "min": -0.14739042828852178,
+        "max": 0.14216892326398578,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volatility_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.015309918573252477,
+        "std": 0.009011417750373016,
+        "min": 0.002355646146168859,
+        "max": 0.0890514793605607,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Log_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.6711409395973155,
+        "mean": 0.0010341378900717063,
+        "std": 0.017410149415926647,
+        "min": -0.1594535482168842,
+        "max": 0.13292901908999608,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "VIX_Zscore": {
+        "pct_nan": 0.0,
+        "pct_zero": 9.93288590604027,
+        "mean": -0.11950793286694843,
+        "std": 1.2129657076528164,
+        "min": -2.0558381124465748,
+        "max": 11.827805394702636,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Yield_Spread": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.8720621906250082,
+        "std": 0.9572892643106982,
+        "min": -1.7039997577667236,
+        "max": 2.471000070683658,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "DXY": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 97.4379150117537,
+        "std": 4.666280094637612,
+        "min": 88.58999633789062,
+        "max": 114.11000061035156,
+        "is_constant": false,
+        "flag_reasons": []
+      }
+    },
+    "NVDA": {
+      "Close": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 11.238496482598968,
+        "std": 11.9742498805981,
+        "min": 0.4672475755214691,
+        "max": 50.373779296875,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volume": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 480937673.3780761,
+        "std": 259707415.6890109,
+        "min": 52448000.0,
+        "max": 3692928000.0,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 11.140363263295802,
+        "std": 11.845037412625755,
+        "min": 0.47656348943710325,
+        "max": 49.194128799438474,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_30": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 10.92790496987251,
+        "std": 11.569360508659917,
+        "min": 0.48342515528202057,
+        "max": 48.23568547566732,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "EMA_12": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 11.119393460112288,
+        "std": 11.807929889181882,
+        "min": 0.4770625898355429,
+        "max": 48.894040078888125,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "RSI_14": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 56.6569851677284,
+        "std": 17.243968488484516,
+        "min": 8.187921416853172,
+        "max": 99.42917811641269,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Daily_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.22371364653243847,
+        "mean": 0.00248501480785286,
+        "std": 0.030409690586105587,
+        "min": -0.18755873220814834,
+        "max": 0.2980668734479066,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volatility_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.026954035125688947,
+        "std": 0.014432555598399273,
+        "min": 0.007327982074388729,
+        "max": 0.11300957855590715,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Log_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.22371364653243847,
+        "mean": 0.0020255926810536264,
+        "std": 0.03017005353376737,
+        "min": -0.20771165318563256,
+        "max": 0.26087613733066034,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "VIX_Zscore": {
+        "pct_nan": 0.0,
+        "pct_zero": 9.93288590604027,
+        "mean": -0.11950793286694843,
+        "std": 1.2129657076528164,
+        "min": -2.0558381124465748,
+        "max": 11.827805394702636,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Yield_Spread": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.8720621906250082,
+        "std": 0.9572892643106982,
+        "min": -1.7039997577667236,
+        "max": 2.471000070683658,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "DXY": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 97.4379150117537,
+        "std": 4.666280094637612,
+        "min": 88.58999633789062,
+        "max": 114.11000061035156,
+        "is_constant": false,
+        "flag_reasons": []
+      }
+    },
+    "TSLA": {
+      "Close": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 104.0422409706201,
+        "std": 111.16085272278895,
+        "min": 9.57800006866455,
+        "max": 409.9700012207031,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volume": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 114777268.59060402,
+        "std": 77247355.78058127,
+        "min": 10620000.0,
+        "max": 914082000.0,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 103.55997162880782,
+        "std": 110.7866551002718,
+        "min": 10.40813331604004,
+        "max": 383.0626678466797,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_30": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 102.52300336017082,
+        "std": 109.98002397284968,
+        "min": 11.833911005655924,
+        "max": 367.6344441731771,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "EMA_12": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 103.45871252944848,
+        "std": 110.54496155606608,
+        "min": 10.878715952406925,
+        "max": 371.8385853282326,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "RSI_14": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 53.19718120268915,
+        "std": 18.43924599181982,
+        "min": 7.743780716905988,
+        "max": 97.52993259669202,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Daily_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0894854586129754,
+        "mean": 0.0019379591616783855,
+        "std": 0.035661324975291626,
+        "min": -0.21062824320390794,
+        "max": 0.19894859376394902,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volatility_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.031736433276020846,
+        "std": 0.01587500309133309,
+        "min": 0.00653131895621526,
+        "max": 0.12463497320857911,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Log_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0894854586129754,
+        "mean": 0.0013023704101989132,
+        "std": 0.035627347560557306,
+        "min": -0.23651789445767657,
+        "max": 0.18144500086765858,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "VIX_Zscore": {
+        "pct_nan": 0.0,
+        "pct_zero": 9.93288590604027,
+        "mean": -0.11950793286694843,
+        "std": 1.2129657076528164,
+        "min": -2.0558381124465748,
+        "max": 11.827805394702636,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Yield_Spread": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.8720621906250082,
+        "std": 0.9572892643106982,
+        "min": -1.7039997577667236,
+        "max": 2.471000070683658,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "DXY": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 97.4379150117537,
+        "std": 4.666280094637612,
+        "min": 88.58999633789062,
+        "max": 114.11000061035156,
+        "is_constant": false,
+        "flag_reasons": []
+      }
+    },
+    "SPY": {
+      "Close": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 286.4593117460042,
+        "std": 90.830585553739,
+        "min": 154.5587921142578,
+        "max": 463.9230041503906,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volume": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 90076239.55257271,
+        "std": 45275138.810748525,
+        "min": 20270000.0,
+        "max": 507244300.0,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 285.87305125396523,
+        "std": 90.54012191599779,
+        "min": 158.598974609375,
+        "max": 460.80968017578124,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "SMA_30": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 284.60624345977124,
+        "std": 90.0090556203149,
+        "min": 160.2288609822591,
+        "max": 449.34804280598956,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "EMA_12": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 285.7482622281556,
+        "std": 90.43954354501149,
+        "min": 158.4982132037222,
+        "max": 459.00851151278846,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "RSI_14": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 56.901816912204396,
+        "std": 16.29663066570292,
+        "min": 3.989541361689348,
+        "max": 95.4437274915854,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Daily_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.2684563758389262,
+        "mean": 0.0005055296146048424,
+        "std": 0.01141141778278283,
+        "min": -0.10942382429259045,
+        "max": 0.09060330504982228,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Volatility_10": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.0092460544647729,
+        "std": 0.006898819758125967,
+        "min": 0.0012645084443076726,
+        "max": 0.07073326330368644,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Log_Return": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.2684563758389262,
+        "mean": 0.0004400179970462274,
+        "std": 0.011452045862310049,
+        "min": -0.11588663728615417,
+        "max": 0.08673103399287414,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "VIX_Zscore": {
+        "pct_nan": 0.0,
+        "pct_zero": 9.93288590604027,
+        "mean": -0.11950793286694843,
+        "std": 1.2129657076528164,
+        "min": -2.0558381124465748,
+        "max": 11.827805394702636,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "Yield_Spread": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 0.8720621906250082,
+        "std": 0.9572892643106982,
+        "min": -1.7039997577667236,
+        "max": 2.471000070683658,
+        "is_constant": false,
+        "flag_reasons": []
+      },
+      "DXY": {
+        "pct_nan": 0.0,
+        "pct_zero": 0.0,
+        "mean": 97.4379150117537,
+        "std": 4.666280094637612,
+        "min": 88.58999633789062,
+        "max": 114.11000061035156,
+        "is_constant": false,
+        "flag_reasons": []
+      }
+    }
+  },
+  "flagged": []
+}

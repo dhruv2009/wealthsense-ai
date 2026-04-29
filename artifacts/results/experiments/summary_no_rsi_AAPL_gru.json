@@ -1,0 +1,62 @@
+{
+  "ticker": "AAPL",
+  "model": "gru",
+  "original_feature_cols": [
+    "Close",
+    "Volume",
+    "SMA_10",
+    "SMA_30",
+    "EMA_12",
+    "RSI_14",
+    "Daily_Return",
+    "Volatility_10",
+    "Log_Return",
+    "VIX_Zscore",
+    "Yield_Spread",
+    "DXY"
+  ],
+  "no_rsi_feature_cols": [
+    "Close",
+    "Volume",
+    "SMA_10",
+    "SMA_30",
+    "EMA_12",
+    "Daily_Return",
+    "Volatility_10",
+    "Log_Return",
+    "VIX_Zscore",
+    "Yield_Spread",
+    "DXY"
+  ],
+  "original": {
+    "metrics_returns": {
+      "MAE": 0.01137640994460039,
+      "RMSE": 0.014195313050867348,
+      "SMAPE": 142.26080423476026,
+      "Dir_Acc": 54.800000000000004
+    },
+    "metrics_prices": {
+      "MAE_$": 111.54024155185185,
+      "RMSE_$": 154.37629902253607,
+      "MAPE_%": 61.836618337686666
+    }
+  },
+  "no_rsi": {
+    "metrics_returns": {
+      "MAE": 0.013459016024382518,
+      "RMSE": 0.016594167738729942,
+      "SMAPE": 129.52116398174832,
+      "Dir_Acc": 56.00000000000001
+    },
+    "metrics_prices": {
+      "MAE_$": 553.7519037780644,
+      "RMSE_$": 817.9991542756849,
+      "MAPE_%": 304.874570578537
+    }
+  },
+  "delta": {
+    "MAPE_%": 243.0379522408503,
+    "Dir_Acc": 1.2000000000000028,
+    "MAE_$": 442.2116622262125
+  }
+}

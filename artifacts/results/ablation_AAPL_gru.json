@@ -1,0 +1,127 @@
+{
+  "full": {
+    "n_features": 12,
+    "features": [
+      "Close",
+      "Volume",
+      "SMA_10",
+      "SMA_30",
+      "EMA_12",
+      "RSI_14",
+      "Daily_Return",
+      "Volatility_10",
+      "Log_Return",
+      "VIX_Zscore",
+      "Yield_Spread",
+      "DXY"
+    ],
+    "metrics_returns": {
+      "MAE": 0.01137640994460039,
+      "RMSE": 0.014195313050867348,
+      "SMAPE": 142.26080423476026,
+      "Dir_Acc": 54.800000000000004
+    },
+    "metrics_prices": {
+      "MAE_$": 111.54024155185185,
+      "RMSE_$": 154.37629902253607,
+      "MAPE_%": 61.836618337686666
+    }
+  },
+  "no_macro": {
+    "n_features": 9,
+    "features": [
+      "Close",
+      "Volume",
+      "SMA_10",
+      "SMA_30",
+      "EMA_12",
+      "RSI_14",
+      "Daily_Return",
+      "Volatility_10",
+      "Log_Return"
+    ],
+    "metrics_returns": {
+      "MAE": 0.009985016941979744,
+      "RMSE": 0.01308163107307698,
+      "SMAPE": 176.4337827569274,
+      "Dir_Acc": 44.0
+    },
+    "metrics_prices": {
+      "MAE_$": 56.45489970598336,
+      "RMSE_$": 60.48317552105486,
+      "MAPE_%": 32.08810514080707
+    }
+  },
+  "no_rsi": {
+    "n_features": 11,
+    "features": [
+      "Close",
+      "Volume",
+      "SMA_10",
+      "SMA_30",
+      "EMA_12",
+      "Daily_Return",
+      "Volatility_10",
+      "Log_Return",
+      "VIX_Zscore",
+      "Yield_Spread",
+      "DXY"
+    ],
+    "metrics_returns": {
+      "MAE": 0.009813234884021992,
+      "RMSE": 0.012821003155266488,
+      "SMAPE": 155.8434857152871,
+      "Dir_Acc": 56.39999999999999
+    },
+    "metrics_prices": {
+      "MAE_$": 15.001378826765446,
+      "RMSE_$": 17.193888198000458,
+      "MAPE_%": 8.835057179570098
+    }
+  },
+  "no_volume": {
+    "n_features": 11,
+    "features": [
+      "Close",
+      "SMA_10",
+      "SMA_30",
+      "EMA_12",
+      "RSI_14",
+      "Daily_Return",
+      "Volatility_10",
+      "Log_Return",
+      "VIX_Zscore",
+      "Yield_Spread",
+      "DXY"
+    ],
+    "metrics_returns": {
+      "MAE": 0.015354562602078722,
+      "RMSE": 0.01828737322265409,
+      "SMAPE": 147.34823704632868,
+      "Dir_Acc": 44.0
+    },
+    "metrics_prices": {
+      "MAE_$": 121.28944112025654,
+      "RMSE_$": 133.07859423972013,
+      "MAPE_%": 68.56274974107049
+    }
+  },
+  "price_only": {
+    "n_features": 2,
+    "features": [
+      "Close",
+      "Log_Return"
+    ],
+    "metrics_returns": {
+      "MAE": 0.010138218741033808,
+      "RMSE": 0.013170355629006545,
+      "SMAPE": 162.1981809374528,
+      "Dir_Acc": 46.0
+    },
+    "metrics_prices": {
+      "MAE_$": 65.26723677857338,
+      "RMSE_$": 72.02952620594564,
+      "MAPE_%": 36.84890762319295
+    }
+  }
+}
