@@ -70,4 +70,4 @@ WF_FINETUNE_EPOCHS = 10
 WF_FINETUNE_LR = 1e-5
 
 # Chat (Google Gemini — free tier)
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-flash-latest"

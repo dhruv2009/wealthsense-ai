@@ -842,8 +842,7 @@ elif page == "AI Chat":
                     "your portfolio, model results, and most recent goal plan.")
     else:
         st.markdown("Powered by **WealthSense AI engine** -- ask about your portfolio, "
-                    "forecasts, or financial goals. "
-                    "Set `GOOGLE_API_KEY` in `.env` for Gemini-powered answers.")
+                    "forecasts, or financial goals.")
 
     summary = load_summary(summary_mtime())
     data = load_market_data()
@@ -861,20 +860,21 @@ elif page == "AI Chat":
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    # Quick prompt buttons for faster chat workflows.
+    # Quick prompt buttons with selected ticker interpolation.
     st.markdown("**Quick prompts**")
+    selected_ticker = st.session_state.get("current_ticker_selection", "AAPL")
     quick_prompts = [
-        "How is my forecast performing for my selected ticker?",
-        "Which model is best and why?",
-        "Compare GRU vs Transformer on my selected ticker.",
-        "Explain my walk-forward consistency in plain English.",
-        "How calibrated are my uncertainty intervals?",
-        "What should I improve next in this project?",
+        "What is the best model for {ticker} and by how much does it beat ARIMA?",
+        "Are my uncertainty bands reliable for {ticker}?",
+        "Why does directional accuracy stay near 50%?",
+        "What does the walk-forward std tell me about model consistency?",
+        "What are the 3 biggest limitations of this project?",
+        "Explain the RSI ablation finding in plain English",
     ]
     qp_cols = st.columns(2)
     for i, qp in enumerate(quick_prompts):
         if qp_cols[i % 2].button(qp, key=f"quick_prompt_{i}"):
-            st.session_state["pending_quick_prompt"] = qp
+            st.session_state["pending_quick_prompt"] = qp.replace("{ticker}", selected_ticker)
             st.rerun()
 
     prompt = st.chat_input("Ask about your portfolio, models, or goals ...")
