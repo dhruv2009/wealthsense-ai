@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+import plotly.io as pio
 import streamlit as st
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -29,6 +30,34 @@ from src.monte_carlo import (
 )
 from src.chat import chat as merged_chat
 from src.critical_analysis import generate_analysis
+
+pio.templates.default = "plotly_dark"
+
+TICKER_COLORS = {
+    "AAPL": "#636EFA",
+    "MSFT": "#EF553B",
+    "NVDA": "#00CC96",
+    "TSLA": "#AB63FA",
+    "SPY": "#FFA15A",
+}
+MODEL_COLORS = {
+    "lstm": "#636EFA",
+    "gru": "#EF553B",
+    "transformer": "#00CC96",
+    "ensemble": "#AB63FA",
+    "arima": "#FFA15A",
+    "naive": "#19D3F3",
+}
+
+
+def style_fig(fig, title: str, x_label: str, y_label: str):
+    fig.update_layout(
+        template="plotly_dark",
+        title=title,
+        xaxis_title=x_label,
+        yaxis_title=y_label,
+        showlegend=True,
+    )
 
 
 # ── Page config ─────────────────────────────────────────────────────────
@@ -58,12 +87,18 @@ def load_market_data():
 
 
 @st.cache_data(show_spinner="Loading model results ...")
-def load_summary():
+def load_summary(_mtime: float = 0.0):
     p = os.path.join(config.RESULTS_DIR, "summary.json")
     if os.path.exists(p):
         with open(p) as f:
             return json.load(f)
     return None
+
+
+def summary_mtime() -> float:
+    """Return summary.json mtime for cache invalidation."""
+    p = os.path.join(config.RESULTS_DIR, "summary.json")
+    return os.path.getmtime(p) if os.path.exists(p) else 0.0
 
 
 def load_predictions(name: str, ticker: str):
@@ -146,15 +181,20 @@ if page == "Portfolio Analytics":
     with col1:
         st.subheader("Asset Allocation")
         fig = px.pie(names=config.TICKERS,
-                     values=[weights[t] for t in config.TICKERS])
+                     values=[weights[t] for t in config.TICKERS],
+                     color=config.TICKERS,
+                     color_discrete_map=TICKER_COLORS)
+        style_fig(fig, "Portfolio allocation", "Ticker", "Weight (%)")
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("Pie chart of your current portfolio weights across selected tickers.")
 
     with col2:
         st.subheader("Cumulative Portfolio Return")
         cum = np.cumprod(1 + port_ret)
-        fig = go.Figure(go.Scatter(x=returns_df.index, y=cum, name="Portfolio"))
-        fig.update_layout(yaxis_title="Growth of 1 USD", xaxis_title="Date")
+        fig = go.Figure(go.Scatter(x=returns_df.index, y=cum, name="Portfolio", line=dict(color="#00CC96", width=3)))
+        style_fig(fig, "Cumulative portfolio return", "Date", "Growth of 1 USD")
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("Shows how one dollar grows over time with your chosen allocation.")
 
     st.subheader("Risk Metrics")
     m = portfolio_metrics(port_ret)
@@ -171,9 +211,10 @@ if page == "Portfolio Analytics":
     fig = go.Figure()
     for t in sel:
         if t in data:
-            fig.add_trace(go.Scatter(x=data[t]["Date"], y=data[t]["Close"], name=t))
-    fig.update_layout(yaxis_title="Close Price (USD)", xaxis_title="Date")
+            fig.add_trace(go.Scatter(x=data[t]["Date"], y=data[t]["Close"], name=t, line=dict(color=TICKER_COLORS.get(t, "#CCCCCC"))))
+    style_fig(fig, "Individual stock prices", "Date", "Close Price (USD)")
     st.plotly_chart(fig, use_container_width=True)
+    st.caption("Compares historical close prices for the selected stocks.")
 
 
 # ════════════════════════════════════════════════════════════════════════
@@ -181,7 +222,7 @@ if page == "Portfolio Analytics":
 # ════════════════════════════════════════════════════════════════════════
 elif page == "Forecast View":
     st.title("Deep Learning Forecast View")
-    summary = load_summary()
+    summary = load_summary(summary_mtime())
     if summary is None:
         st.error("No trained models found. Run `python src/train.py` first.")
         st.stop()
@@ -224,6 +265,30 @@ elif page == "Forecast View":
         })
     st.dataframe(pd.DataFrame(rows).set_index("Model"), use_container_width=True)
     st.caption("DL models predict log-returns. Price-domain metrics (USD) are computed on the reconstructed price path.")
+    wf_summary_for_bar = load_walk_forward_summary()
+    if wf_summary_for_bar and ticker in (wf_summary_for_bar.get("tickers") or {}):
+        wf_ticker_blob = (wf_summary_for_bar.get("tickers") or {}).get(ticker, {})
+        bar_rows = []
+        for m in ["lstm", "gru", "transformer", "ensemble", "arima", "naive"]:
+            blob = wf_ticker_blob.get(m) or {}
+            mm = (blob.get("mean_metrics") or {}).get("MAPE_%")
+            ss = (blob.get("std_metrics") or {}).get("MAPE_%")
+            if mm is None:
+                continue
+            bar_rows.append({"Model": m, "MAPE_%": float(mm), "std": float(ss) if ss is not None else 0.0})
+        if bar_rows:
+            bar_df = pd.DataFrame(bar_rows).sort_values("MAPE_%", ascending=True)
+            bar_fig = go.Figure()
+            bar_fig.add_trace(go.Bar(
+                x=bar_df["Model"].str.upper(),
+                y=bar_df["MAPE_%"],
+                marker_color=[MODEL_COLORS.get(m, "#FFFFFF") for m in bar_df["Model"]],
+                error_y=dict(type="data", array=bar_df["std"], visible=True),
+                name="MAPE_%",
+            ))
+            style_fig(bar_fig, f"Model comparison by walk-forward MAPE — {ticker}", "Model", "MAPE %")
+            st.plotly_chart(bar_fig, use_container_width=True)
+            st.caption("Lower MAPE = better forecast accuracy. Error bars show variation across walk-forward folds.")
 
     # ── Ensemble weights ──
     weights = info.get("ensemble_weights")
@@ -242,10 +307,17 @@ elif page == "Forecast View":
                 continue
             actual_p = d["actual_price"]
             pred_p = d["pred_price"]
+            x_axis = pd.to_datetime(d["test_dates"]) if "test_dates" in d.files else np.arange(len(actual_p))
             fig = go.Figure()
-            fig.add_trace(go.Scatter(y=actual_p, name="Actual", line=dict(color="black")))
-            fig.add_trace(go.Scatter(y=pred_p, name="Predicted",
-                                     line=dict(dash="dash", color="royalblue")))
+            fig.add_trace(go.Scatter(
+                x=x_axis, y=pred_p, name="Predicted",
+                line=dict(dash="dash", color=MODEL_COLORS.get(name, "#EF553B"), width=2)
+            ))
+            # Draw actual last so it is always visible on top.
+            fig.add_trace(go.Scatter(
+                x=x_axis, y=actual_p, name="Actual Price",
+                line=dict(color="#00CC96", width=3)
+            ))
             # Optional MC dropout band
             if "y_pred_lower" in d.files and "y_pred_upper" in d.files:
                 last_p = float(actual_p[0]) / float(np.exp(d["y_true"][0]))
@@ -254,87 +326,98 @@ elif page == "Forecast View":
                 for lo, hi in zip(d["y_pred_lower"], d["y_pred_upper"]):
                     lo_p.append(lo_p[-1] * float(np.exp(lo)))
                     hi_p.append(hi_p[-1] * float(np.exp(hi)))
-                fig.add_trace(go.Scatter(y=hi_p[1:], name="Upper 95%",
+                fig.add_trace(go.Scatter(x=x_axis, y=hi_p[1:], name="Upper 95%",
                                          line=dict(width=0), showlegend=False))
-                fig.add_trace(go.Scatter(y=lo_p[1:], name="Lower 5%",
+                fig.add_trace(go.Scatter(x=x_axis, y=lo_p[1:], name="Lower 5%",
                                          line=dict(width=0),
                                          fill="tonexty",
-                                         fillcolor="rgba(65,105,225,0.18)",
+                                         fillcolor="rgba(239,85,59,0.15)",
                                          showlegend=True))
-            fig.update_layout(title=f"{name.upper()} -- {ticker}",
-                              xaxis_title="Test Day", yaxis_title="Price (USD)")
+            style_fig(fig, f"{name.upper()} forecast vs actual — {ticker} test period", "Date", "Price (USD)")
             st.plotly_chart(fig, use_container_width=True)
+            st.caption("Red = model prediction with uncertainty band. Green = actual price. Shaded region = 90% confidence interval from MC Dropout.")
 
             if "train_losses" in d.files:
                 fl = go.Figure()
-                fl.add_trace(go.Scatter(y=d["train_losses"], name="Train"))
-                fl.add_trace(go.Scatter(y=d["val_losses"], name="Val"))
-                fl.update_layout(title="Training Curves",
-                                 xaxis_title="Epoch", yaxis_title="MSE Loss")
+                fl.add_trace(go.Scatter(y=d["train_losses"], name="Train", line=dict(color="#00CC96")))
+                fl.add_trace(go.Scatter(y=d["val_losses"], name="Validation", line=dict(color="#EF553B")))
+                style_fig(fl, "Training curves", "Epoch", "MSE Loss")
                 st.plotly_chart(fl, use_container_width=True)
+                st.caption("Training and validation loss over epochs to assess model convergence.")
 
     with tabs[4]:
         fig = go.Figure()
-        first = True
-        for name, color in [("lstm", "blue"), ("gru", "green"),
-                            ("transformer", "red"), ("ensemble", "purple"),
-                            ("arima", "orange"), ("naive", "gray")]:
+        actual_added = False
+        for name in ["lstm", "gru", "transformer", "ensemble", "arima", "naive"]:
             d = load_predictions(name, ticker)
             if d is None:
                 continue
-            if first:
-                fig.add_trace(go.Scatter(y=d["actual_price"], name="Actual",
-                                         line=dict(color="black")))
-                first = False
-            fig.add_trace(go.Scatter(y=d["pred_price"], name=name.upper(),
-                                     line=dict(dash="dash", color=color)))
-        fig.update_layout(title=f"All Models -- {ticker}",
-                          xaxis_title="Test Day", yaxis_title="Price (USD)")
+            x_axis = pd.to_datetime(d["test_dates"]) if "test_dates" in d.files else np.arange(len(d["pred_price"]))
+            fig.add_trace(go.Scatter(x=x_axis, y=d["pred_price"], name=name.upper(),
+                                     line=dict(dash="dash", color=MODEL_COLORS.get(name, "#FFFFFF"), width=2)))
+            if not actual_added:
+                fig.add_trace(go.Scatter(
+                    x=x_axis, y=d["actual_price"], name="Actual Price",
+                    line=dict(color="#00CC96", width=3)
+                ))
+                actual_added = True
+        style_fig(fig, f"All models vs actual — {ticker}", "Date", "Price (USD)")
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("Compares all model price forecasts against the actual price path on the test period.")
 
     # ── GRU deep-dive charts ──
-    st.subheader("GRU Forecast Diagnostics")
-    gru_pred = load_predictions("gru", ticker)
-    if gru_pred is None:
-        st.info("No GRU prediction file found for this ticker.")
+    st.subheader("Model Forecast Diagnostics")
+    diagnostic_model = st.selectbox("Diagnostic model", ["gru", "lstm", "transformer", "ensemble"], key="diag_model")
+    model_pred = load_predictions(diagnostic_model, ticker)
+    if model_pred is None:
+        st.info(f"No {diagnostic_model.upper()} prediction file found for this ticker.")
     else:
-        if "test_dates" in gru_pred.files:
-            x_dates = pd.to_datetime(gru_pred["test_dates"])
+        if "test_dates" in model_pred.files:
+            x_dates = pd.to_datetime(model_pred["test_dates"])
         else:
-            x_dates = np.arange(len(gru_pred["actual_price"]))
-        actual_p = np.asarray(gru_pred["actual_price"], dtype=float)
-        pred_p = np.asarray(gru_pred["pred_price"], dtype=float)
+            x_dates = np.arange(len(model_pred["actual_price"]))
+        actual_p = np.asarray(model_pred["actual_price"], dtype=float)
+        pred_p = np.asarray(model_pred["pred_price"], dtype=float)
 
         # 1) Prediction vs Actual overlay with MC dropout band
+        model_blob = ((info.get("models") or {}).get(diagnostic_model) or {})
+        mret = model_blob.get("metrics_returns") or {}
+        mpri = model_blob.get("metrics_prices") or {}
+        mc1, mc2, mc3 = st.columns(3)
+        mc1.metric("MAE_$", f"{mpri.get('MAE_$', float('nan')):.2f}")
+        mc2.metric("MAPE_%", f"{mpri.get('MAPE_%', float('nan')):.2f}")
+        mc3.metric("Dir_Acc", f"{mret.get('Dir_Acc', float('nan')):.2f}%")
         overlay = go.Figure()
         overlay.add_trace(go.Scatter(x=x_dates, y=actual_p, mode="lines",
-                                     name="Actual close price", line=dict(color="blue")))
+                                     name="Actual Price", line=dict(color="#00CC96", width=3)))
         overlay.add_trace(go.Scatter(x=x_dates, y=pred_p, mode="lines",
-                                     name="Predicted price", line=dict(color="orange")))
-        if "y_pred_lower" in gru_pred.files and "y_pred_upper" in gru_pred.files and "y_true" in gru_pred.files:
-            last_p = float(actual_p[0]) / float(np.exp(gru_pred["y_true"][0]))
+                                     name="Predicted Price", line=dict(color="#EF553B", width=2)))
+        if "y_pred_lower" in model_pred.files and "y_pred_upper" in model_pred.files and "y_true" in model_pred.files:
+            last_p = float(actual_p[0]) / float(np.exp(model_pred["y_true"][0]))
             lo_p = [last_p]
             hi_p = [last_p]
-            for lo, hi in zip(gru_pred["y_pred_lower"], gru_pred["y_pred_upper"]):
+            for lo, hi in zip(model_pred["y_pred_lower"], model_pred["y_pred_upper"]):
                 lo_p.append(lo_p[-1] * float(np.exp(lo)))
                 hi_p.append(hi_p[-1] * float(np.exp(hi)))
             overlay.add_trace(go.Scatter(x=x_dates, y=hi_p[1:], name="Upper bound",
                                          line=dict(width=0), showlegend=False))
             overlay.add_trace(go.Scatter(x=x_dates, y=lo_p[1:], name="MC Dropout band",
                                          line=dict(width=0), fill="tonexty",
-                                         fillcolor="rgba(255,165,0,0.2)"))
-        overlay.update_layout(
-            title=f"GRU forecast vs actual — {ticker} test period",
-            xaxis_title="Date",
-            yaxis_title="Price (USD)",
-        )
+                                         fillcolor="rgba(239,85,59,0.15)"))
+        style_fig(overlay, f"GRU forecast vs actual — {ticker} test period", "Date", "Price (USD)")
         st.plotly_chart(overlay, use_container_width=True)
+        st.caption("Red = model prediction with uncertainty band. Green = actual price. Shaded region = 90% confidence interval from MC Dropout.")
 
         # 2) Residual plot with direction-correct coloring
-        if "y_pred" in gru_pred.files and "y_true" in gru_pred.files:
+        if "y_pred" in model_pred.files and "y_true" in model_pred.files:
             residual_usd = pred_p - actual_p
-            direction_correct = np.sign(gru_pred["y_pred"]) == np.sign(gru_pred["y_true"])
+            direction_correct = np.sign(model_pred["y_pred"]) == np.sign(model_pred["y_true"])
             colors = np.where(direction_correct, "green", "red")
+            rc = float(np.mean(direction_correct) * 100)
+            rw = 100.0 - rc
+            c1, c2 = st.columns(2)
+            c1.metric("% correct direction", f"{rc:.2f}%")
+            c2.metric("% wrong direction", f"{rw:.2f}%")
             residual_fig = go.Figure()
             residual_fig.add_trace(go.Scatter(
                 x=x_dates,
@@ -343,13 +426,10 @@ elif page == "Forecast View":
                 marker=dict(color=colors, size=7),
                 name="Residual (Pred - Actual)",
             ))
-            residual_fig.add_hline(y=0, line_dash="dash", line_color="black")
-            residual_fig.update_layout(
-                title="Residuals (USD) with direction correctness",
-                xaxis_title="Date",
-                yaxis_title="Predicted - Actual (USD)",
-            )
+            residual_fig.add_hline(y=0, line_dash="dash", line_color="white")
+            style_fig(residual_fig, "Residuals (USD) with direction correctness", "Date", "Predicted - Actual (USD)")
             st.plotly_chart(residual_fig, use_container_width=True)
+            st.caption("Each point = one trading day. Green = model predicted direction correctly. Red = wrong direction. Clustering above/below zero shows systematic bias.")
 
     # ── Calibration table ──
     st.subheader("Uncertainty Calibration (DL models)")
@@ -380,22 +460,28 @@ elif page == "Forecast View":
                 att = extract_attention(ticker, X_sample)
                 imp = att["day_importance"]
                 fig = go.Figure(go.Bar(x=list(range(1, len(imp) + 1)), y=imp))
-                fig.update_layout(title=f"What the Transformer attends to (avg over {len(X_sample)} test windows)",
-                                  xaxis_title="Day in 30-day input window (1=oldest, 30=most recent)",
-                                  yaxis_title="Attention weight (last layer, last position)")
+                style_fig(fig, f"What the Transformer attends to (avg over {len(X_sample)} test windows)",
+                          "Day in 30-day window (1=oldest, 30=most recent)",
+                          "Attention weight (last layer, last position)")
                 st.plotly_chart(fig, use_container_width=True)
+                st.caption("Bar height shows average attention assigned to each day in the 30-day input window.")
                 fig2 = px.imshow(att["layers"][-1],
                                  labels=dict(x="Key day", y="Query day", color="Attn"),
                                  title="Final-layer attention matrix")
+                fig2.update_layout(template="plotly_dark", showlegend=True, xaxis_title="Day in 30-day window (1=oldest, 30=most recent)", yaxis_title="Attention head")
                 st.plotly_chart(fig2, use_container_width=True)
+                st.caption("Matrix view of final-layer attention showing how positions attend to each other.")
                 # 3) Real heatmap view requested: x=day, y=attention head (proxy slots)
                 head_like = np.asarray(att["layers"][-1], dtype=float)
                 fig3 = px.imshow(
                     head_like,
+                    color_continuous_scale="Viridis",
                     labels=dict(x="Day in sequence (1-30)", y="Attention head", color="Attention weight"),
                     title="Transformer attention heatmap (x: day, y: attention head)",
                 )
+                fig3.update_layout(template="plotly_dark", showlegend=True, xaxis_title="Day in 30-day window (1=oldest, 30=most recent)", yaxis_title="Attention head")
                 st.plotly_chart(fig3, use_container_width=True)
+                st.caption("Brighter = more attention. Shows which historical days the Transformer focuses on when making predictions.")
         except FileNotFoundError:
             st.info("Train models first to enable attention visualization.")
         except Exception as e:
@@ -409,11 +495,20 @@ elif page == "Forecast View":
         bh, strat = trading_strategy_returns(d["actual_price"], d["pred_price"])
         bh_cum = np.cumprod(1 + bh)
         st_cum = np.cumprod(1 + strat)
+        final_bh = (bh_cum[-1] - 1) * 100
+        final_st = (st_cum[-1] - 1) * 100
+        delta = final_st - final_bh
+        k1, k2, k3 = st.columns(3)
+        k1.metric("Final Buy & Hold return", f"{final_bh:.2f}%")
+        k2.metric("Final Strategy return", f"{final_st:.2f}%")
+        k3.metric("Outperformance delta", f"{delta:+.2f}%")
         fig = go.Figure()
-        fig.add_trace(go.Scatter(y=bh_cum, name="Buy & Hold"))
-        fig.add_trace(go.Scatter(y=st_cum, name=f"{model_choice.upper()} Strategy"))
-        fig.update_layout(yaxis_title="Growth of 1 USD", xaxis_title="Test Day")
+        x_axis = pd.to_datetime(d["test_dates"]) if "test_dates" in d.files else np.arange(len(bh_cum))
+        fig.add_trace(go.Scatter(x=x_axis, y=bh_cum, name="Buy & Hold", line=dict(color="#00CC96", width=3)))
+        fig.add_trace(go.Scatter(x=x_axis, y=st_cum, name="Model Strategy", line=dict(color="#EF553B", width=3)))
+        style_fig(fig, "Trading Strategy vs Buy-and-Hold", "Date", "Growth of 1 USD")
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("Strategy goes long when model predicts positive return. 5bps transaction cost per trade. Underperformance vs buy-and-hold is consistent with the Efficient Market Hypothesis.")
         c1, c2 = st.columns(2)
         with c1:
             st.markdown("**Buy & Hold**")
@@ -559,6 +654,7 @@ elif page == "Walk-Forward Analysis":
             model_df = line_df[line_df["Model"] == m].sort_values("Fold")
             model_key = m.lower()
             std_val = float((wf_results.get(model_key, {}).get("std_metrics") or {}).get("MAPE_%", 0.0))
+            color = MODEL_COLORS.get(model_key, "#FFFFFF")
             y = model_df["MAPE_%"].values.astype(float)
             x = model_df["Fold"].values.astype(int)
             upper = y + std_val
@@ -568,14 +664,18 @@ elif page == "Walk-Forward Analysis":
             ))
             fig.add_trace(go.Scatter(
                 x=x, y=lower, mode="lines", line=dict(width=0),
-                fill="tonexty", fillcolor="rgba(100,149,237,0.12)",
+                fill="tonexty", fillcolor=f"rgba({int(color[1:3],16)},{int(color[3:5],16)},{int(color[5:7],16)},0.2)",
                 showlegend=False, name=f"{m} -1 std"
             ))
             fig.add_trace(go.Scatter(
-                x=x, y=y, mode="lines+markers", name=m
+                x=x, y=y, mode="lines+markers", name=m, line=dict(color=color, width=2), marker=dict(color=color)
             ))
-        fig.update_layout(xaxis_title="Fold number", yaxis_title="MAPE_%")
+        naive_mean = float((wf_results.get("naive", {}).get("mean_metrics") or {}).get("MAPE_%", np.nan))
+        if not np.isnan(naive_mean):
+            fig.add_hline(y=naive_mean, line_dash="dash", line_color=MODEL_COLORS["naive"], annotation_text="Naive baseline")
+        style_fig(fig, "Walk-forward fold performance", "Fold number", "MAPE %")
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("Each fold = 6 months of unseen data. Lower and flatter = more accurate and consistent across time.")
     else:
         st.info("Per-fold series unavailable.")
 
@@ -708,22 +808,26 @@ elif page == "Goal Planner":
         st.subheader("Simulated Portfolio Paths")
         paths = res["paths"]
         m_axis = np.arange(paths.shape[1])
+        st.metric("Probability of reaching goal", f"{res['success_rate']}%")
+        st.metric("Median final value", f"{res['median_final']:,.0f} USD")
         fig = go.Figure()
         idxs = np.random.choice(paths.shape[0], min(200, paths.shape[0]), replace=False)
         for i in idxs:
             fig.add_trace(go.Scatter(x=m_axis, y=paths[i],
-                                     line=dict(width=0.3, color="rgba(100,149,237,0.15)"),
+                                     line=dict(width=0.3, color="rgba(99,110,250,0.05)"),
                                      showlegend=False))
-        fig.add_trace(go.Scatter(x=m_axis, y=np.percentile(paths, 5, axis=0),
-                                 name="5th %ile", line=dict(dash="dot", color="red")))
+        fig.add_trace(go.Scatter(x=m_axis, y=np.percentile(paths, 10, axis=0),
+                                 name="Worst 10%", line=dict(color="#EF553B", width=2)))
         fig.add_trace(go.Scatter(x=m_axis, y=np.median(paths, axis=0),
-                                 name="Median", line=dict(color="blue", width=2)))
-        fig.add_trace(go.Scatter(x=m_axis, y=np.percentile(paths, 95, axis=0),
-                                 name="95th %ile", line=dict(dash="dot", color="green")))
+                                 name="Median outcome", line=dict(color="#00CC96", width=3)))
+        fig.add_trace(go.Scatter(x=m_axis, y=np.percentile(paths, 90, axis=0),
+                                 name="Best 10%", line=dict(color="#AB63FA", width=2)))
         fig.add_hline(y=target, line_dash="dash", line_color="black",
-                      annotation_text=f"Target {target:,.0f} USD")
-        fig.update_layout(xaxis_title="Month", yaxis_title="Portfolio Value (USD)")
+                      annotation_text=f"Your goal: {target:,.0f} USD")
+        style_fig(fig, "Monte Carlo goal simulation", "Month", "Portfolio Value (USD)")
+        fig.update_shapes(dict(line_color="white"))
         st.plotly_chart(fig, use_container_width=True)
+        st.caption("5000 simulated paths. Green = median outcome. Red = worst 10% of scenarios. Dashed white = your goal amount.")
 
 
 # ════════════════════════════════════════════════════════════════════════
@@ -741,7 +845,7 @@ elif page == "AI Chat":
                     "forecasts, or financial goals. "
                     "Set `GOOGLE_API_KEY` in `.env` for Gemini-powered answers.")
 
-    summary = load_summary()
+    summary = load_summary(summary_mtime())
     data = load_market_data()
     portfolio_alloc = {t: 20 for t in config.TICKERS}
     weights_norm = {t: 0.2 for t in config.TICKERS}
