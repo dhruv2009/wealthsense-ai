@@ -1,0 +1,110 @@
+{
+  "ticker": "AAPL",
+  "base_defaults": {
+    "sequence_length": 30,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "dropout": 0.2,
+    "epochs_per_run": 20
+  },
+  "results": {
+    "SEQUENCE_LENGTH": [
+      {
+        "value": 15,
+        "best_val_loss": 0.0005185448145308343,
+        "final_val_loss": 0.0005240659340770834,
+        "test_mape": 14.824075315712276
+      },
+      {
+        "value": 30,
+        "best_val_loss": 0.0004951888567812563,
+        "final_val_loss": 0.0005031583746765328,
+        "test_mape": 58.14248119140625
+      },
+      {
+        "value": 60,
+        "best_val_loss": 0.0005165951333910346,
+        "final_val_loss": 0.0005743758844775686,
+        "test_mape": 76.81212787460893
+      }
+    ],
+    "hidden_size": [
+      {
+        "value": 32,
+        "best_val_loss": 0.0005497010621850739,
+        "final_val_loss": 0.0005497010621850739,
+        "test_mape": 36.21554370578903
+      },
+      {
+        "value": 64,
+        "best_val_loss": 0.0005090342024322674,
+        "final_val_loss": 0.0005170233054661686,
+        "test_mape": 46.351522716709184
+      },
+      {
+        "value": 128,
+        "best_val_loss": 0.0005011413071538318,
+        "final_val_loss": 0.0005110144511744588,
+        "test_mape": 16.713364391134782
+      }
+    ],
+    "num_layers": [
+      {
+        "value": 1,
+        "best_val_loss": 0.000545543224033176,
+        "final_val_loss": 0.0006351489956357119,
+        "test_mape": 35.37079174665557
+      },
+      {
+        "value": 2,
+        "best_val_loss": 0.0005059829011904558,
+        "final_val_loss": 0.000514418785590159,
+        "test_mape": 39.637649855423284
+      },
+      {
+        "value": 3,
+        "best_val_loss": 0.0005004463890804891,
+        "final_val_loss": 0.0005097916452733585,
+        "test_mape": 18.521150883270273
+      }
+    ],
+    "dropout": [
+      {
+        "value": 0.1,
+        "best_val_loss": 0.0005361452479327312,
+        "final_val_loss": 0.0005476526951740135,
+        "test_mape": 16.04367313163299
+      },
+      {
+        "value": 0.3,
+        "best_val_loss": 0.000511903235080292,
+        "final_val_loss": 0.000511903235080292,
+        "test_mape": 37.06146742631785
+      },
+      {
+        "value": 0.5,
+        "best_val_loss": 0.0006249128500893861,
+        "final_val_loss": 0.0006273962646366591,
+        "test_mape": 353.3911260547118
+      }
+    ]
+  },
+  "impact_ranking_by_mape_spread": [
+    {
+      "parameter": "dropout",
+      "mape_spread": 337.3474529230788
+    },
+    {
+      "parameter": "SEQUENCE_LENGTH",
+      "mape_spread": 61.988052558896655
+    },
+    {
+      "parameter": "hidden_size",
+      "mape_spread": 29.638158325574402
+    },
+    {
+      "parameter": "num_layers",
+      "mape_spread": 21.11649897215301
+    }
+  ]
+}
