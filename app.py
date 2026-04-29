@@ -861,7 +861,27 @@ elif page == "AI Chat":
         with st.chat_message(msg["role"]):
             st.markdown(msg["content"])
 
-    if prompt := st.chat_input("Ask about your portfolio, models, or goals ..."):
+    # Quick prompt buttons for faster chat workflows.
+    st.markdown("**Quick prompts**")
+    quick_prompts = [
+        "How is my forecast performing for my selected ticker?",
+        "Which model is best and why?",
+        "Compare GRU vs Transformer on my selected ticker.",
+        "Explain my walk-forward consistency in plain English.",
+        "How calibrated are my uncertainty intervals?",
+        "What should I improve next in this project?",
+    ]
+    qp_cols = st.columns(2)
+    for i, qp in enumerate(quick_prompts):
+        if qp_cols[i % 2].button(qp, key=f"quick_prompt_{i}"):
+            st.session_state["pending_quick_prompt"] = qp
+            st.rerun()
+
+    prompt = st.chat_input("Ask about your portfolio, models, or goals ...")
+    if not prompt and st.session_state.get("pending_quick_prompt"):
+        prompt = st.session_state.pop("pending_quick_prompt")
+
+    if prompt:
         st.session_state.chat_history.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
