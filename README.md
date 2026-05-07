@@ -2,6 +2,8 @@
 
 Deep-learning stock forecasting + goal-based financial planning, presented through a Streamlit dashboard.
 
+**Live Demo:** [https://wealthsenseai.streamlit.app](https://wealthsenseai.streamlit.app/)
+
 ## What's in the box
 
 | Layer | Module | What it does |
