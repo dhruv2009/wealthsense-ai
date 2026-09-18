@@ -171,7 +171,7 @@ def _build_gemini_context(summary: dict | None, ticker: str,
     dm_pair = dm_blob.get("ensemble_vs_arima") or {}
     if dm_pair:
         dm_significant = str(bool(dm_pair.get("significant_5pct")))
-        dm_pvalue = _fmt_pct(dm_pair.get("p_value"))
+        dm_pvalue = f"{float(dm_pair.get('p_value')):.4f}"
 
     context = (
         f"Current ticker: {ticker}\n"
