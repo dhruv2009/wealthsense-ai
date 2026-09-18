@@ -2,7 +2,7 @@
 
 Deep-learning stock forecasting + goal-based financial planning, presented through a Streamlit dashboard.
 
-**Live Demo:** [https://wealthsenseai.streamlit.app](https://wealthsenseai.streamlit.app/)
+**Live Demo:** [https://wealthsense-ai-dg.streamlit.app/](https://wealthsense-ai-dg.streamlit.app/)
 
 ## What's in the box
 
