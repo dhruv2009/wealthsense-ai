@@ -213,41 +213,43 @@ def _gemini_chat(user_message: str, summary: dict | None = None,
     if not api_key:
         return ""  # Signal caller to use fallback
 
-    try:
-        import google.generativeai as genai
+        try:
+        from google import genai
+        from google.genai import types
     except ImportError:
         return ""  # Signal caller to use fallback
 
-    genai.configure(api_key=api_key)
+    client = genai.Client(api_key=api_key)
     selected_ticker = (current_ticker or _infer_ticker_from_text(user_message) or "AAPL")
     context = _build_gemini_context(summary, selected_ticker,
                                     outlook=outlook,
                                     goal_result=goal_result,
                                     portfolio=portfolio)
 
-    gemini_history = []
+    contents = []
     if history:
         for h in history[-6:]:
             role = "user" if h.get("role") == "user" else "model"
-            gemini_history.append({"role": role, "parts": [h.get("content", "")]})
+            contents.append(types.Content(
+                role=role,
+                parts=[types.Part(text=h.get("content", ""))],
+            ))
+
+    prompt = (
+        f"Current dashboard context (JSON):\n```json\n{context}\n```\n\n"
+        f"User question: {user_message}"
+    )
+    contents.append(types.Content(role="user", parts=[types.Part(text=prompt)]))
 
     try:
-        model = genai.GenerativeModel(
-            model_name=config.GEMINI_MODEL,
-            system_instruction=SYSTEM_PROMPT,
+        resp = client.models.generate_content(
+            model=config.GEMINI_MODEL,
+            contents=contents,
+            config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT),
         )
-        chat_session = model.start_chat(history=gemini_history)
-        prompt = (
-            f"Current dashboard context (JSON):\n```json\n{context}\n```\n\n"
-            f"User question: {user_message}"
-        )
-        resp = chat_session.send_message(prompt)
-        if resp.text:
-            return resp.text
-        return ""
+        return resp.text or ""
     except Exception:
         return ""  # Fall back to smart_reply on any error
-
 
 # ═══════════════════════════════════════════════════════════════════════
 #  Free rule-based fallback (used when no API key)
