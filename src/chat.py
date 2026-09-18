@@ -36,7 +36,8 @@ Current project context:
 - Evaluation: walk-forward validation across 4 folds
 - Key finding: ensemble beats ARIMA significantly on MSFT, NVDA, SPY (p<0.01)
 - Key finding: directional accuracy hovers near 50% — consistent with EMH
-- Key finding: conformal calibration improved uncertainty coverage significantly"""
+- Key finding: conformal calibration improved uncertainty coverage significantly
+- Diebold-Mariano p-values: p < 0.05 means the difference IS statistically significant; p >= 0.05 means it is NOT significant. Never describe a p-value above 0.05 as significant."""
 
 
 def _infer_ticker_from_text(text: str) -> str | None:
