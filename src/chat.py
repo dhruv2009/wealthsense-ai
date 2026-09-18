@@ -213,7 +213,7 @@ def _gemini_chat(user_message: str, summary: dict | None = None,
     if not api_key:
         return ""  # Signal caller to use fallback
 
-        try:
+    try:
         from google import genai
         from google.genai import types
     except ImportError:
